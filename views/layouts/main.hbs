@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    {{{body}}}
+</body>
+<script>
+    var global;
+    var table1 = [];
+
+    function page(pageNo)
+    {
+                    tab = global;
+                    limit = 5;
+                    basePage = pageNo * limit;
+                    tab1 = tab.slice( basePage, basePage + limit);
+                    table1 = []
+
+                    for (let i = 0; i < tab1.length; i++) {
+                        table1.push('<tr>' + '<td>' + tab1[i]._id + '</td>' +
+                            '<td>' + tab1[i].branchId + '</td>' +
+                            '<td>' + tab1[i].customerId + '</td>' +
+                            '<td>' + tab1[i].firstname + '</td>' +
+                            '<td>' + tab1[i].lastname + '</td>' +
+                            '<td>' + tab1[i].supervisorId + '</td>');
+                    }
+
+                    for(let i=0; i<tab.length/5; i++)
+                    {
+                        table1.push('<center>'+'<div>'+'<a href="javascript:page('+i+')">'+i+'</a>'+'</div>'+'</center>');
+                    }
+                    document.getElementById("customer-list").innerHTML = table1;
+    }
+
+    function manage() {
+
+        var x = document.getElementById('m1').value;
+
+        if (x === 'sachin') {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var arr = [];
+                    var doc = JSON.parse(xhttp.responseText);
+                    arr.push('<select id="s1" onchange="staff1()"><option>' + doc[0].username + '</option><option>' + doc[1].username + '</option></select>')
+                    document.getElementById("demo").innerHTML = arr;
+                }
+            };
+            xhttp.open("GET", "/staff/20", true);
+            xhttp.send();
+        }
+        else if (x === 'pavan') {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var arr = [];
+                    var doc = JSON.parse(xhttp.responseText);
+                    arr.push('<select id="s2" onchange="staff2()"><option>' + doc[0].username + '</option><option>' + doc[1].username + '</option></select>')
+                    document.getElementById("demo").innerHTML = arr;
+                }
+            };
+            xhttp.open("GET", "/staff/30", true);
+            xhttp.send();
+        }
+
+    }
+
+    function staff1() {
+        
+        var y = document.getElementById('s1').value;
+        if (y === 'john') {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let tab = JSON.parse(xhttp.responseText);
+                    global = tab;
+                    page(0);
+                }
+            };
+            xhttp.open("GET", "/customer/40", true);
+            xhttp.send();
+        }
+        else if (y === 'mike') {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                   let tab = JSON.parse(xhttp.responseText);
+                    global = tab;
+                    page(0);
+                }
+            };
+            xhttp.open("GET", "/customer/50", true);
+            xhttp.send();
+        }
+    }
+    function staff2() {
+        var z = document.getElementById('s2').value;
+        if (z === 'dom') {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                   let tab = JSON.parse(xhttp.responseText);
+                    global = tab;
+                    page(0);
+                }
+            };
+            xhttp.open("GET", "/customer/60", true);
+            xhttp.send();
+        }
+        else if (z === 'letty') {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let tab = JSON.parse(xhttp.responseText);
+                    global = tab;
+                    page(0);
+                }
+            };
+            xhttp.open("GET", "/customer/70", true);
+            xhttp.send();
+        }
+    }
+</script>
+
+</html>
